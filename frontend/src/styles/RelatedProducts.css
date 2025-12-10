@@ -1,0 +1,53 @@
+.related-scroll {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  gap: 12px;
+}
+
+.related-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.slider-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  padding: 6px 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: all 0.2s ease;
+}
+.slider-icon:hover {
+  background: #f1f1f1;
+}
+.slider-icon.left {
+  left: 0;
+}
+.slider-icon.right {
+  right: 0;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+.related-product-item {
+  flex: 0 0 185px;
+  max-width: 185px;
+  position: relative; /* ✅ enables hanging tag inside card to show properly */
+}
+
+
+.related-product-item .product-card {
+  position: relative;         /* ✅ makes discount-tag position absolute work inside it */
+  overflow: visible !important; /* ✅ ensures tag isn't clipped */
+  padding: 16px;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+}
+

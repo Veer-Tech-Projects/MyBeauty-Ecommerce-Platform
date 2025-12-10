@@ -1,0 +1,76 @@
+.seller-products-page {
+  position: absolute;
+  inset: 0;
+  background-color: #f8f9fa;
+  overflow-y: auto;
+  padding-bottom: 60px;
+}
+
+.product-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.clickable-icon {
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.clickable-icon:hover {
+  color: #0d6efd;
+}
+
+.search-bar .form-control {
+  border-left: none;
+  box-shadow: none;
+}
+
+.search-bar .input-group-text {
+  border-right: none;
+}
+
+.table td,
+.table th {
+  vertical-align: middle !important;
+}
+
+.badge.bg-danger-subtle {
+  background-color: #fdecea;
+  color: #d63384;
+  font-size: 0.75rem;
+}
+.variant-toggle-row td {
+  padding-left: 3rem;
+  border: none;
+}
+
+.variant-toggle-button {
+  background: none;
+  border: none;
+  color: #161616;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+}
+
+.variant-toggle-button i {
+  transition: transform 0.2s;
+}
+
+.variant-toggle-button.open i {
+  transform: rotate(180deg);
+}
+
+.variant-slide-wrapper {
+  transition: max-height 0.3s ease;
+  overflow: hidden;
+}
+
+.variant-row {
+  background-color: #fdfdfd;
+}
+
+.variant-indent td {
+  padding-left: 3rem;
+}

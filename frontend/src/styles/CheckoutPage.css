@@ -1,0 +1,106 @@
+/* ─────────  VARIABLES  ───────── */
+:root {
+  --circle: 36px;           /* circle diameter                     */
+  --rail-h: 4px;            /* rail thickness                      */
+
+  --gold:  #c79460;         /* colour of the CURRENT (active) step */
+  --done:  #4caf50;         /* colour for COMPLETED steps / rail   */
+  --rail:  #e0d6c5;         /* base (grey) rail                    */
+}
+
+/* shrink circles on very small phones */
+@media (max-width: 420px) { :root { --circle: 28px; } }
+
+/* ─────────  WRAPPER  ──────────── */
+.step-tracker-wrapper {
+  max-width: 600px;
+  margin: 90px auto 24px;
+  padding-inline: calc(var(--circle) / 2); /* reserve half‑circle at each end */
+  box-sizing: content-box;
+}
+
+/* ─────────  FLEX ROW  ─────────── */
+.step-tracker {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* base grey rail */
+.step-tracker::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--circle) / 2 - var(--rail-h) / 2);
+  left: 0;
+  width: 100%;
+  height: var(--rail-h);
+  background: var(--rail);
+  border-radius: 4px;
+  z-index: 0;
+}
+
+/* green progress rail (width driven by --progress: 0‑100 %) */
+.progress-line {
+  position: absolute;
+  top: calc(var(--circle) / 2 - var(--rail-h) / 2);
+  left: 0;
+  width: var(--progress);          /* e.g. 0%, 50%, 100%  */
+  height: var(--rail-h);
+  background: var(--done);         /* green segment       */
+  border-radius: 4px;
+  transition: width .35s ease;
+  z-index: 1;
+}
+
+/* ─────────  CIRCLES & LABELS  ─── */
+.step {
+  text-align: center;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.circle {
+  width: var(--circle);
+  height: var(--circle);
+  margin: 0 auto;
+  border-radius: 50%;
+  border: 2px solid var(--gold);   /* gold outline by default */
+  background: #fff;
+  color: var(--gold);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* current (active) step */
+.step.active .circle {
+  background: var(--gold);
+  color: #fff;
+}
+
+/* completed steps */
+.step.done .circle {
+  background: var(--done);
+  border-color: var(--done);
+  color: #fff;
+}
+
+/* show ✓ inside completed circle, hide number */
+.step.done .circle::before {
+  content: '\f26e';                /* Bootstrap‑Icons check‑lg */
+  font-family: "bootstrap-icons";
+  font-size: 1.1rem;
+}
+
+.step.done .circle > * {           /* hide original number / icon */
+  display: none;
+}
+
+.label {
+  margin-top: 6px;
+  font-size: .85rem;
+  color: #5a4530;
+}

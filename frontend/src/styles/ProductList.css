@@ -1,0 +1,112 @@
+/* =======================================================
+   Product List (Admin)  –  warm glass design
+====================================================== */
+
+/* palette / radius */
+:root {
+  --sand-50:  #f7f3ef;
+  --sand-100: #eee7df;
+  --brown-600:#5d4b38;
+  --gold:     #c8a66e;
+  --red:      #d65656;
+  --shadow:   0 6px 20px rgba(0,0,0,.06);
+  --radius:   18px;
+}
+
+/* wrapper */
+.product-list {
+  max-width: 760px;
+  margin: 0 auto 3.5rem;
+  padding: 0 1rem;
+}
+
+/* card */
+.prod-card {
+  background: rgba(255,255,255,.58);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--sand-100);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.8rem 1.5rem;
+  margin: 20px 0 1.5rem;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.prod-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,.08); }
+.prod-card.editing { border-color: var(--gold); }
+
+/* title (view‑mode) */
+.prod-title        { font-weight: 700; color: var(--brown-600); }
+.prod-title small  { font-weight: 600; color: var(--gold); }
+
+/* mini buttons */
+.prod-card .btn          { font-size: 0.8rem; padding: .38rem .9rem; border-radius: 999px; }
+.prod-card .btn-primary  { background: var(--gold); border:none; }
+.prod-card .btn-primary:hover { background:#b28d5c; }
+.prod-card .btn-warning  { background:transparent; color:var(--brown-600); border:1px solid var(--sand-100); }
+.prod-card .btn-warning:hover { background:var(--sand-50); }
+.prod-card .btn-danger   { background:var(--red); border:none; }
+.prod-card .btn-danger:hover { background:#bf4343; }
+
+/* stock colours */
+.btn-warning.instock  { background:#3a973a; color:#fff; border:black; }
+.btn-warning.outstock { background:#ebcd0f; color:#131313; border:black; }
+.btn-warning.instock:hover  { background:#48d148; }
+.btn-warning.outstock:hover { background:#dbbf07; }
+
+/* ========== edit‑area inputs ========== */
+.edit-area .form-control,
+.edit-area .form-select {
+  font-size: .85rem;
+  border-radius: 10px;
+  border: 1px solid var(--sand-100);
+  margin-bottom: .55rem;
+}
+.edit-area textarea { resize: vertical; }
+
+/* ========== image chips ========== */
+.old-img {
+  position: relative;
+  display: inline-block;
+  margin: 0 .35rem .45rem 0;
+}
+.old-img img {
+  width: 78px;
+  height: 78px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--sand-100);
+  transition: transform .22s ease;
+}
+.old-img:hover img { transform: scale(1.06); }
+.preview-grid { display:flex; flex-wrap:wrap; gap:.6rem .6rem; }
+.preview-grid img { width:78px; height:78px; border-radius:10px; object-fit:cover; }
+
+/* ✕ badge (centred) */
+.remove-btn {
+  position:absolute !important;
+  top:-6px; right:-6px;
+  width:22px !important;
+  height:22px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  font-size:13px !important;
+  line-height:1 !important;
+  color:#fff !important;
+  background:var(--red) !important;
+  border:none !important;
+  border-radius:50% !important;
+  padding:0 !important;
+  transition:background .18s ease;
+}
+.remove-btn:hover { background:#bf4343 !important; }
+
+/* ========== tiny Save / Cancel pills ========== */
+.btn-save,
+.btn-cancel {
+  padding-left: 0.55rem !important;
+  padding-right: 0.55rem !important;
+  width: 50%;
+}
+.btn-save:hover,
+.btn-cancel:hover { opacity:.9; }

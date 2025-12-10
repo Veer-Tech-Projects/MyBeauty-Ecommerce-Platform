@@ -1,0 +1,36 @@
+.seller-address-page {
+  position: absolute;
+  inset: 0;
+  padding: 2rem;
+  background-color: #fdfdfd;
+  overflow-y: auto;
+}
+
+.seller-address-page .card {
+  border-radius: 10px;
+}
+
+.seller-address-page .form-control {
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.seller-address-page .form-label {
+  font-weight: 500;
+  color: #333;
+}
+
+.seller-address-page .form-check-inline {
+  margin-right: 1.5rem;
+}
+
+.clickable {
+  cursor: pointer;
+}
+button.btn {
+  transition: all 0.2s ease;
+}
+
+button.btn:hover {
+  opacity: 0.9;
+}

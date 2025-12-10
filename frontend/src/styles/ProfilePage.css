@@ -1,0 +1,120 @@
+/* --------------------------------------------------
+   Palette / shadow / radius
+-------------------------------------------------- */
+:root {
+  --glass:         rgba(255,255,255,.55);
+  --gold:          #c7a875;
+  --gold-dark:     #a48b60;
+  --txt:           #463a31;
+  --txt-soft:      #7b6a59;
+  --shadow-soft:   0 4px 18px rgba(0,0,0,.05);
+  --radius:        16px;
+}
+
+/* --------------------------------------------------
+   Base wrapper
+-------------------------------------------------- */
+.profile-page{
+  min-height:100vh;
+  padding:2.6rem .75rem 4rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  font-family:"Inter","SF Pro",-apple-system,sans-serif;
+  margin-top: 40px;
+}
+
+/* --------------------------------------------------
+   Glass hero card  (max-width ↓ 380px)
+-------------------------------------------------- */
+.profile-card{
+  width:100%;
+  max-width:380px;
+  background:var(--glass);
+  backdrop-filter:blur(22px);
+  border-radius:24px;
+  padding:2rem 1.4rem 1.8rem;
+  box-shadow:var(--shadow-soft);
+  text-align:center;
+  margin-bottom:2.2rem;
+  transition:transform .22s ease;
+}
+.profile-card:hover{transform:translateY(-2px)}
+
+/* avatar ↓ 96px  */
+.profile-avatar{
+  width:96px;height:96px;border-radius:50%;
+  object-fit:cover;border:3px solid var(--gold);
+  box-shadow:0 0 0 5px rgba(199,168,117,.16);
+}
+
+/* name  */
+.profile-name{
+  font-weight:800;font-size:1.3rem;
+  color:var(--txt);letter-spacing:.025em;margin-top:.8rem;
+}
+
+/* --------------------------------------------------
+   Deluxe tagline pill  – centred & glassy
+-------------------------------------------------- */
+.profile-tagline{
+  display:block;
+  width:max-content;
+  margin:1rem auto 1.6rem;
+  padding:0.4rem 1.45rem;
+  font-size:0.93rem;
+  font-weight:600;
+  letter-spacing:0.015em;
+  color:#b08d5e;                               /* lighter gold-tan  */
+  background:linear-gradient(135deg,
+              rgba(255,255,255,.55) 0%,
+              rgba(253,251,248,.85) 40%,
+              rgba(245,236,224,.85) 100%);      /* ivory → champagne */
+  border:1px solid rgba(190,164,120,.35);
+  border-radius:999px;
+  box-shadow:
+       0 2px 6px rgba(0,0,0,.05),              /* soft drop */
+       inset 0 1px 2px rgba(255,255,255,.6);    /* inner glow */
+  backdrop-filter:blur(10px) saturate(120%);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+
+.profile-tagline:hover{
+  transform:translateY(-2px);
+  box-shadow:
+       0 6px 18px rgba(0,0,0,.08),
+       inset 0 1px 3px rgba(255,255,255,.6);
+}
+
+
+/* --------------------------------------------------
+   Gold button (unchanged sizes but thinner border)
+-------------------------------------------------- */
+.btn-gold{
+  background:var(--gold);color:#fff;
+  border:none;border-radius:999px;
+  font-size:.88rem;font-weight:600;
+  padding:.55rem 1.4rem;
+  box-shadow:var(--shadow-soft);
+  transition:background .18s ease;
+}
+.btn-gold:hover{background:var(--gold-dark)}
+
+/* --------------------------------------------------
+   Tiles grid (gap ↓, font ↓)
+-------------------------------------------------- */
+.tiles-grid{
+  display:grid;gap:1rem;width:100%;max-width:380px;padding:0 .25rem;
+}
+.menu-tile{
+  display:flex;justify-content:space-between;align-items:center;
+  background:#fff;color:var(--txt);font-weight:600;font-size:.9rem;
+  padding:.9rem 1.1rem;border:none;border-radius:var(--radius);
+  box-shadow:var(--shadow-soft);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.menu-tile:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.menu-tile i{font-size:1.05rem;color:var(--gold-dark);transition:transform .18s ease}
+.menu-tile:hover i{transform:translateX(3px)}
+.menu-tile.logout{color:#d44;background:#fff7f7}
+.menu-tile.logout i{color:#d44}

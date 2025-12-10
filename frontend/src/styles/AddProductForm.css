@@ -1,0 +1,245 @@
+/* -------------------------------------------------
+   Global palette & helpers
+-------------------------------------------------- */
+:root {
+  --sand-50:   #f7f3ef;
+  --sand-100:  #eee7df;
+  --brown-600: #5d4b38;
+  --gold-400:  #c9a46e;
+  --gold-500:  #b49260;
+  --shadow:    0 6px 18px rgba(0,0,0,.06);
+  --radius:    16px;
+}
+
+/* -------------------------------------------------
+   Glass card wrapper
+-------------------------------------------------- */
+.add-prod-card{
+  max-width: 700px;
+  margin: 2.5rem auto;
+  background: rgba(255,255,255,.58);
+  backdrop-filter: blur(14px);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2.4rem 2rem 2.6rem;
+  border: 1px solid var(--sand-100);
+}
+
+/* Heading */
+.add-prod-card h4{
+  font-weight: 800;
+  letter-spacing: .02em;
+  color: var(--brown-600);
+  margin-bottom: 2rem;
+}
+
+/* -------------------------------------------------
+   Labels • Inputs • Selects
+-------------------------------------------------- */
+.add-prod-card .form-label{
+  font-weight: 600;
+  color: var(--brown-600);
+  margin-bottom: .4rem;
+  font-size: .92rem;
+}
+.add-prod-card .form-control,
+.add-prod-card .form-select{
+  font-size: .9rem;
+  border-radius: 10px;
+  border: 1px solid var(--sand-100);
+  transition: border-color .17s ease, box-shadow .17s ease;
+}
+.add-prod-card .form-control:focus,
+.add-prod-card .form-select:focus{
+  border-color: var(--gold-400);
+  box-shadow: 0 0 0 .15rem rgba(201,164,110,.25);
+}
+
+/* ★ Category <option> styling */
+.add-prod-card select.form-select option{
+  background:#fff;
+  color:var(--brown-600);
+  padding:.4rem .55rem;
+  font-size:.88rem;
+}
+.add-prod-card select.form-select option:checked{
+  background:var(--gold-400);
+  color:#fff;
+}
+
+/* -------------------------------------------------
+   Gold primary button
+-------------------------------------------------- */
+.btn-gold-primary{
+  background: var(--gold-400);
+  border: none;
+  color:#fff;
+  font-weight:600;
+  border-radius: 999px;
+  padding:.6rem 1.8rem;
+  margin-top: .6rem;
+  transition: background .18s ease, transform .18s ease;
+}
+.btn-gold-primary:hover{
+  background: var(--gold-500);
+  transform: translateY(-1px);
+}
+
+/* -------------------------------------------------
+   Image preview grid
+-------------------------------------------------- */
+.preview-grid{
+  display:flex; flex-wrap:wrap;
+  gap:.6rem .6rem;
+  margin-bottom:.8rem;
+}
+.preview-item{ position:relative; }
+.preview-item img{
+  width:78px; height:78px;
+  border-radius:10px;
+  object-fit:cover;
+  border:1px solid var(--sand-100);
+  background:#fff;
+  transition:transform .22s ease;
+}
+.preview-item:hover img{ transform:scale(1.05); }
+
+.preview-item .remove{
+  position:absolute;
+  top:-6px; right:-6px;
+  width:22px; height:22px;
+  font-size:14px; font-weight:700;
+  line-height:18px;
+  padding:0;
+  border-radius:50%;
+}
+
+/* -------------------------------------------------
+   Show / Hide categories toggle
+-------------------------------------------------- */
+.cat-toggle-wrapper{               /* new spacing */
+  margin: .9rem 0 1.2rem;
+}
+.cat-toggle{
+  margin-top: 20px;
+}
+.btn-link.cat-toggle{
+  display:inline-block;
+  font-size:.83rem;
+  font-weight:600;
+  color:var(--gold-500);
+  background:rgba(201,164,110,.15);
+  padding:.27rem .9rem .33rem;
+  border-radius:999px;
+  text-decoration:none;
+  transition:background .18s ease, color .18s ease;
+}
+.btn-link.cat-toggle:hover{
+  background:rgba(201,164,110,.26);
+  color:var(--gold-400);
+}
+
+
+/* -------------------------------------------------
+   Mini “Create Category” card
+-------------------------------------------------- */
+.create-cat-card{
+  background:rgba(255,255,255,.6);
+  backdrop-filter:blur(12px);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  border:1px solid var(--sand-100);
+  margin-top:1.1rem;
+  padding:1rem 1.2rem 1.2rem;
+}
+.create-cat-card h6{
+  font-weight:700;
+  color:var(--brown-600);
+  margin-bottom:.85rem;
+}
+.create-cat-card input.form-control{
+  font-size:.83rem;
+}
+.create-cat-card .btn{
+  padding:.38rem 1rem;
+  font-size:.8rem;
+}
+.create-cat-card .small{ font-size:.77rem; }
+
+/* -------------------------------------------------
+   Alert / info message
+-------------------------------------------------- */
+.alert-info{
+  font-size:.88rem;
+  border-radius:10px;
+  padding:.65rem 1.05rem;
+  margin:-.2rem 0 1.6rem;
+  background:#fdfaf6;
+  border:1px solid var(--sand-100);
+}
+/* =========================================================
+   CATEGORY OPTIONS  (inside .cat-list)
+   prettier rows + hover + confirm buttons
+========================================================= */
+.cat-list .list-group-item{
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 0.85rem;
+  padding: 0.55rem 0.9rem;
+  background: #fff;
+  color: var(--brown-600);
+  border: none;
+  transition: background .15s ease;
+}
+
+/* first / last radius so the scroll box has rounded ends */
+.cat-list .list-group-item:first-child{ border-top-left-radius: var(--radius); border-top-right-radius: var(--radius); }
+.cat-list .list-group-item:last-child { border-bottom-left-radius: var(--radius); border-bottom-right-radius: var(--radius); }
+
+.cat-list .list-group-item:hover{
+  background: rgba(201,164,110,.06);         /* faint gold-tint hover */
+}
+
+/* delete-prompt text (“Delete “X”?”)  */
+.cat-list .list-group-item span{
+  font-weight: 600;
+  color: var(--brown-600);
+  margin-right: .4rem;
+}
+
+/* Yes / No buttons inside confirm */
+.cat-list .list-group-item .btn{
+  font-size: 0.75rem;
+  padding: 0.32rem 0.6rem;
+  line-height: 1;
+}
+
+.cat-list .list-group-item .btn-danger{
+  background: #d65656;                       /* warmer red */
+  border: none;
+}
+.cat-list .list-group-item .btn-danger:hover{
+  background: #bf4343;
+}
+
+.cat-list .list-group-item .btn-secondary{
+  background: var(--sand-50);
+  border: 1px solid var(--sand-100);
+  color: var(--brown-600);
+}
+.cat-list .list-group-item .btn-secondary:hover{
+  background: var(--sand-100);
+}
+
+/* the little trash icon button (normal, not in confirm state) */
+.cat-list .btn-outline-danger{
+  border: none;
+  color: #d65656;
+}
+.cat-list .btn-outline-danger:hover{
+  color: #bf4343;
+  background: rgba(214,86,86,.12);
+}

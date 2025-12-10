@@ -1,0 +1,33 @@
+.payment-step .pay-option {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.payment-step .pay-option:hover {
+  background-color: #f9f9f9;
+}
+.payment-step .pay-option.selected {
+  border-color: #2874f0;
+  background-color: #f0f7ff;
+}
+.payment-step .pay-option.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.pay-btn-wrapper {
+  margin-bottom: 30px !important; 
+  background:transparent;
+  padding: 12px 0;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #eee;
+}
+@media (max-width: 576px) {
+  .pay-btn-wrapper {
+    bottom: 60px;
+    padding: 10px;
+  }
+}

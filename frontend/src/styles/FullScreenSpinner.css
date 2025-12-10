@@ -1,0 +1,22 @@
+/* Full viewport backdrop */
+.fs-spinner-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;                       /* above nav + modals */
+  background: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Smooth rotation */
+@keyframes spin360 {
+  to { transform: rotate(360deg); }
+}
+
+.bangle-rotate {
+  animation: spin360 2.5s linear infinite;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+  user-select: none;
+  pointer-events: none;
+}

@@ -1,0 +1,71 @@
+/***** BASE LAYOUT (desktop + mobile) *****/
+.banner-slide {
+  background: linear-gradient(to right, #fef9f4 60%, #f4f1ee 100%);
+  border-radius: 16px;
+  min-height: 300px;
+  display: flex;
+  flex-wrap: wrap;                 /* allows wrap on very narrow screens */
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 2.5rem;
+  margin-top: 75px;
+  row-gap: 1.5rem;                 /* gap when wrapped */
+}
+
+/* left column */
+.banner-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  padding-left: 20px;
+}
+.banner-text  {
+  font-size: 1rem;
+  color: #4b4b4b;
+  padding-left: 20px;
+}
+.banner-btn   {
+  background-color: #a78963;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  border: none;
+  margin: 10px 0 0 20px;
+}
+.banner-btn:hover { background-color: #8c6f4f; }
+
+/* right column */
+.banner-img {
+  max-height: 280px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/***** MOBILE ADJUSTMENTS (≤ 768 px) *****/
+@media (max-width: 768px) {
+  /* keep row layout but shrink typography & image */
+  .banner-slide      { padding: 1.5rem 1rem; }
+
+  .banner-title      { font-size: 1.6rem; }
+  .banner-text       { font-size: 0.95rem; }
+
+  /* ensure columns don’t overflow: each flex item min 0 */
+  .banner-slide > *  { flex: 1 1 250px; min-width: 0; }
+
+  .banner-img        { max-height: 180px; }
+}
+
+/***** ARROW CONTROLS (center, gray) *****/
+.carousel-control-prev,
+.carousel-control-next {
+  top: calc(50% + 37.5px);       /* re‑centre because of 75px margin‑top */
+  transform: translateY(-50%);
+  width: 44px;                   /* narrow clickable area */
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: brightness(0) invert(38%) contrast(87%);
+  background-size: 1.5rem 1.5rem;
+}

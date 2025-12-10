@@ -1,0 +1,158 @@
+/* Vibrant Theme Colors */
+:root {
+  --vibrant-primary: #ff5722; /* Example: Vibrant Orange */
+  --vibrant-secondary: #ff9800; /* Example: Warm Amber */
+  --vibrant-hover: #e64a19;
+}
+
+
+/* Root container */
+.address-step-root { 
+  background: transparent;
+  padding: 0.5rem 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Heading */
+.ab-heading {
+  color: #2f241f; /* deeper warm tone */
+  font-weight: 700;
+  font-size: 1.45rem;
+  letter-spacing: 0.3px;
+}
+
+/* Add New Address Card */
+.ab-add-card {
+  border-radius: 14px;
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed rgba(191, 142, 88, 0.4); /* warm goldish dotted line */
+  background: linear-gradient(180deg, rgba(249,245,240,0.75), rgba(255,255,255,0.55));
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+  cursor: pointer;
+}
+.ab-add-card:hover { 
+  transform: translateY(-4px); 
+  box-shadow: 0 8px 30px rgba(82, 64, 54, 0.08); 
+  background: linear-gradient(180deg, rgba(250,247,244,0.9), rgba(255,255,255,0.7));
+}
+.add-plus { 
+  font-size: 2.3rem; 
+  color: #b98b5d; /* warm gold */
+  font-weight: 700; 
+}
+.add-text { 
+  margin-top: 6px; 
+  color: #b98b5d; 
+  font-weight: 600; 
+}
+.add-sub { 
+  margin-top: 4px; 
+  color: #7a6d60; 
+  font-size: 0.88rem; 
+}
+
+/* Address Card */
+.ab-card {
+  border-radius: 14px;
+  border: 1px solid #efe7df;
+  box-shadow: 0 4px 14px rgba(36,33,30,0.04);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  cursor: pointer;
+  background: #fff;
+}
+.ab-card:hover { 
+  transform: translateY(-6px); 
+  box-shadow: 0 12px 30px rgba(36,33,30,0.08); 
+  border-color: rgba(191,142,88,0.35); /* warm gold */
+}
+
+/* Selected state */
+.ab-card.selected {
+  border: 2px solid #b98b5d; /* gold border */
+  background: linear-gradient(180deg, #fdf9f5, #ffffff);
+  box-shadow: 0 14px 40px rgba(191,142,88,0.08);
+}
+
+/* Title / Meta */
+.ab-title { font-weight: 700; color: #2f241f; }
+.ab-sub { color: #6b6b6b; font-size: 0.9rem; }
+.ab-address { color: #4a4a4a; font-size: 0.92rem; }
+
+/* --- Vibrant Themed Buttons --- */
+.ab-card .btn,
+.continue-btn,
+.modal-footer .btn {
+  font-size: 0.85rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  background-color:#c8a17a; /* Gold tone */
+  border: none;
+  color: #fff !important;
+  font-weight: 600;
+  transition: background-color 0.18s ease, transform 0.15s ease;
+}
+
+.ab-card .btn:hover,
+.continue-btn:hover,
+.modal-footer .btn:hover {
+  background-color: #a7794e; /* Darker gold */
+  transform: translateY(-1px);
+}
+
+.ab-card .btn:active,
+.continue-btn:active,
+.modal-footer .btn:active {
+  background-color: #c8a17a; /* Pressed state */
+  transform: translateY(0);
+}
+
+/* Continue button spacing */
+.continue-btn-wrapper {
+  text-align: right;
+}
+/* Vibrant buttons */
+.continue-btn {
+  background-color: #b98b5d !important;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+}
+.btn-continue:hover {
+  background-color: #a4784f !important;
+}
+
+.btn-edit {
+  background-color: #b98b5d !important;
+  color: #fff;
+  border: none;
+}
+.btn-edit:hover {
+  background-color: #a4784f !important;
+}
+
+.btn-delete {
+  background-color: #d9534f !important;
+  color: #fff;
+  border: none;
+}
+.btn-delete:hover {
+  background-color: #c9302c !important;
+}
+
+/* Selected address card */
+.ab-card.selected {
+  border: 2px solid #28a745;
+  box-shadow: 0 0 8px rgba(40, 167, 69, 0.4);
+}
+
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .ab-card, .ab-add-card { min-height: 140px; }
+}

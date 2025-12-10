@@ -1,0 +1,168 @@
+/* ProductGrid.css */
+.product-card {
+  border-radius: 16px;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  padding: 16px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
+  width: 95%;
+  position: relative;  /* Ensure hanging tag can sit inside */
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.product-name {
+  font-weight: 500;
+  font-size: 1rem;
+  margin-bottom: 4px;
+  color: #111;
+}
+
+.product-heading {
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: #1f1f1f;
+  margin-bottom: 2.5rem;
+  margin-top: -40px;
+  text-align: left;
+  padding-left: 4%;
+  font-family: 'Inter', sans-serif;
+  margin-left: -12px;
+}
+
+/* ──────────────────────────────────────────────
+   Image wrapper with discount badge
+────────────────────────────────────────────── */
+.prod-img-wrapper {
+  position: relative;
+  width: 100%;
+  height: 135px;
+  overflow: visible;   
+  border-radius: 12px;
+  margin-bottom: 12px; /* spacing below image */
+}
+
+.prod-img-wrapper img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;  /* restore full image view */
+  background: #fff;
+  border-radius: 12px;
+}
+
+/* Discount badge (top-right corner) */
+.discount-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #e53935;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 6px;
+  border-radius: 4px;
+  z-index: 2;
+}
+
+/* ──────────────────────────────────────────────
+   Price display
+────────────────────────────────────────────── */
+.product-price {
+  margin-top: 4px;
+}
+
+.product-price .current-price {
+  color: #111;  /* black for discounted price */
+  font-weight: 700;
+}
+
+.product-price .original-price {
+  color: #7e7e7e;
+  text-decoration: line-through;
+  margin-left: 6px;
+  font-weight: 500;
+}
+
+/* Static badge near price (if repeated) */
+.product-price .discount-badge {
+  position: static;
+  margin-left: 6px;
+  background: #e53935;
+  font-size: 0.7rem;
+  vertical-align: middle;
+}
+/* ───────── VERTICAL HANGING TAG with STRING ───────── */
+.discount-tag {
+  --swing-shift: 6px;
+
+  position: absolute;
+  top: 3px;
+  right: 15%;
+  transform: translateX(50%);
+  width: 61px;
+  height: 28px;
+  background: #e53935;
+  color: #fff;
+  border: 2px dashed #fff;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  transform-origin: top center;
+  animation: tagSwing 2.8s ease-in-out infinite;
+  z-index: 3;
+}
+
+/* HOLE in tag */
+.discount-tag .tag-hole {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8.5px;
+  height: 8.5px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #e53935 inset;
+  z-index: 4;
+}
+
+/* THREAD (string) above tag */
+.discount-tag::before {
+  content: '';
+  position: absolute;
+  top: -19px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 19px;
+  background: #8d6f4e;
+  transform-origin: bottom center;
+  animation: threadSwing 2.5s ease-in-out infinite;
+}
+
+/* TEXT inside tag */
+.tag-text {
+  pointer-events: none;
+  line-height: 1;
+}
+
+/* Swing animations */
+@keyframes tagSwing {
+  0%, 100% { transform: translateX(50%) rotate(0deg); }
+  50%      { transform: translateX(50%) rotate(-4deg); }
+}
+
+@keyframes threadSwing {
+  0%, 100% { transform: rotate(0deg); }
+  50%      { transform: rotate(-2deg); }
+}

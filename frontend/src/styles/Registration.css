@@ -1,0 +1,77 @@
+.stepper-wrapper {
+  position: relative;
+  height: 80px;
+}
+
+.stepper-bar {
+  position: absolute;
+  top: 20px;
+  left: 20px; /* start from center of first circle */
+  right: 20px; /* end at center of last circle */
+  height: 4px;
+  background: #dee2e6;
+  border-radius: 2px;
+  z-index: 1;
+ margin-right: -15px;
+ margin-left: -10px;
+
+}
+
+.stepper-bar-progress {
+  position: absolute;
+  top: 20px;
+  left: 20px; /* MATCH this to .stepper-bar */
+  height: 4px;
+  background: #0d6efd;
+  transition: width 0.4s ease;
+  z-index: 2;
+  margin-left: -12px;
+}
+
+
+.stepper-step {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  border: 2px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #6c757d;
+  margin-bottom: 5px;
+  margin-left: 36px;
+}
+
+.step-circle.active {
+  background: #0d6efd;
+  color: #fff;
+  border-color: #0d6efd;
+}
+
+.step-circle.completed {
+  background: #0d6efd;
+  color: #fff;
+  border-color: #0d6efd;
+}
+
+.step-label {
+  font-size: 0.75rem;
+  width: max-content;
+  margin: 0 auto;
+  white-space: nowrap;
+}
+
+
+
+.registration-container {
+  margin-top: 80px !important;
+}

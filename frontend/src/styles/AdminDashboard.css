@@ -1,0 +1,78 @@
+/* ========================================================
+   Admin Dashboard  —  warm-neutral glass UI
+======================================================== */
+:root {
+  --sand-50:  #f7f3ef;
+  --sand-100: #eee7df;
+  --brown-600:#5d4b38;
+  --gold:     #c8a66e;
+  --shadow:   0 6px 20px rgba(0,0,0,.06);
+  --radius:   18px;
+}
+
+/* ---------- page wrapper ---------- */
+.admin-dash{
+  max-width: 980px;
+  margin: 3.5rem auto 4.5rem;
+  padding: 2.6rem 2rem 3rem;
+  background: rgba(255,255,255,.58);
+  border: 1px solid var(--sand-100);
+  border-radius: var(--radius);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- heading ---------- */
+.admin-dash h2{
+  font-weight: 800;
+  letter-spacing: .02em;
+  color: var(--brown-600);
+  margin-bottom: 2.2rem;
+}
+
+/* ---------- tab-bar ---------- */
+.admin-tabs{
+  display: flex;
+  margin-bottom: 2.3rem;
+  margin-top: 30px;
+
+  justify-content: center;     /* center as a block           */
+  gap: 0.9rem;                 /* consistent gap              */
+  flex-wrap: wrap;
+}
+
+/* generic tab button */
+.tab-btn{
+  font-weight: 600;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  color: var(--brown-600);
+  background: var(--sand-50);
+  transition: background .18s ease, border-color .18s ease,
+              transform .18s ease;
+  box-shadow: var(--shadow);
+
+  flex: 0 1 170px;             /* <=  you can reduce this  */
+  padding: .60rem .12rem;       /* <=  less height / width   */
+  font-size: .88rem;  
+}
+.tab-btn:hover{
+  transform: translateY(-2px);
+  background: var(--sand-100);
+}
+
+/* active state */
+.tab-btn.active{
+  background: var(--gold);
+  color:#fff;
+  border-color: var(--gold);
+}
+
+/* destructive logout variant */
+.logout-btn{
+  background:#ffefef;
+  color:#d74d4d;
+}
+.logout-btn:hover{
+  background:#ffdede;
+}
