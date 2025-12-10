@@ -1,0 +1,123 @@
+/* Layout */
+.seller-dashboard-wrapper {
+  display: flex;
+  position: fixed;
+   inset: 0;
+  background: #fdf9f4;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+    height: 100vh;
+
+}
+
+
+.seller-dashboard-main {
+  flex-grow: 1;
+  overflow-y: auto;
+  background: #fefefe;
+    padding: 2rem;
+
+}
+
+.dashboard-tile-card {
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  border-radius: 10px;
+}
+
+.dashboard-tile-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+}
+
+.topbar-profile {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+/* Sidebar */
+.seller-sidebar {
+  width: 250px;
+  background-color: #ffffff;
+  border-right: 1px solid #eee;
+  min-height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
+  padding-top: 24px;
+}
+
+.seller-dashboard-main {
+  margin-left: 250px;
+  padding: 24px;
+  background-color: #fdfdfd;
+  min-height: 100vh;
+}
+
+.sidebar-header {
+  padding-left: 5px;
+}
+
+.back-icon-link {
+  text-decoration: none !important;
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.sidebar-title {
+  margin-top: 10px;
+  margin-left: 2px;
+  font-size: 20px;
+  color: #333;
+}
+
+.seller-sidebar .nav-link {
+  color: #333;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  margin-top: 5px;
+}
+
+.seller-sidebar .nav-link:hover {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+.seller-sidebar .nav-link.active {
+  background-color: #000;
+  color: #fff;
+}
+
+.back-icon {
+  color: #555;
+}
+
+.topbar-profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.profile-dropdown {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+.seller-dashboard-main {
+  padding-top: 70px; /* To avoid being hidden under fixed topbar */
+  min-height: 100vh;
+  background-color: #fefefe;
+  overflow-x: hidden;
+}
+
+
+
+

@@ -1,0 +1,61 @@
+/* src/components/BottomNav.css */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #f6f1eb;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+  z-index: 1050;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.bottom-nav .nav-icon {
+  color: #333;
+  font-size: 1.4rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.bottom-nav .nav-icon:hover {
+  color: #bf6b2d; /* accent color */
+}
+/* Styled login box */
+.bottom-nav .nav-login-box {
+  display: flex;
+  align-items: center;
+  background-color: #f6f1eb;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.bottom-nav .nav-login-box:hover {
+  background-color: #e0d6cb;
+  color: #bf6b2d;
+}
+
+.bottom-nav .nav-login-box i {
+  font-size: 1.2rem;
+}
+
+.cart-badge {
+  position: absolute;
+  top: 0;
+  right: -8px;
+  background: #dc3545;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 50%;
+  font-weight: bold;
+  line-height: 1;
+}

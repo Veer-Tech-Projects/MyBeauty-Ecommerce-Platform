@@ -1,0 +1,131 @@
+/* ========== pill search that stays inline ========== */
+.nav-search {
+  position: relative;
+  width: 190px;
+  transition: width 0.25s ease;
+}
+
+.nav-search:focus-within {
+  width: 260px;
+}
+
+.nav-search input {
+  width: 100%;
+  border-radius: 999rem;
+  padding: 0.42rem 2.4rem 0.42rem 0.9rem;
+  font-size: 0.875rem;
+  border: 1px solid #d4c9bd;
+  background: #fff;
+}
+
+.nav-search input:focus {
+  border-color: #a48a6e;
+  box-shadow: 0 0 0 0.15rem rgba(164, 138, 110, 0.25);
+}
+
+/* clickable icon button */
+.nav-search .search-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2.4rem;
+  height: 100%;
+  border: none;
+  background: transparent;
+  border-radius: 0 999rem 999rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8d7b66;
+}
+
+.nav-search .search-btn:hover {
+  background: rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+}
+
+/* Mobile breakpoint for navbar responsiveness */
+@media (max-width: 991.98px) {
+  .navbar-nav {
+    align-items: stretch !important;
+    gap: 0 !important;
+  }
+
+  .nav-item {
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+
+  .nav-search {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+
+  .nav-search input {
+    font-size: 1rem;
+    padding: 0.6rem 2.4rem 0.6rem 1rem;
+  }
+
+  .recent-box {
+    font-size: 1rem;
+    left: 0;
+    right: 0;
+    border-radius: 0.25rem;
+  }
+
+  .recent-item {
+    padding: 0.65rem 1rem;
+  }
+
+  .recent-clear {
+    padding: 0.65rem 1rem;
+  }
+
+  .search-btn {
+    width: 3rem;
+    font-size: 1.2rem;
+  }
+}
+
+/* Dropdown container below search */
+.recent-box {
+  position: absolute;
+  top: 105%;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Recent search entry */
+.recent-item {
+  background: none;
+  border: none;
+  padding: 0.45rem 1rem;
+  color: #333;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.recent-item:hover {
+  background: #f4f1ed;
+}
+
+/* Clear history link */
+.recent-clear {
+  border-top: 1px solid #ddd;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  color: #b23b3b;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.recent-clear:hover {
+  background: #f8eaea;
+}

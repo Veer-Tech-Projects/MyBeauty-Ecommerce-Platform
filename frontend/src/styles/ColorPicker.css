@@ -1,0 +1,22 @@
+.default-color-ring {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
+  border: 2px solid #ccc;
+  cursor: pointer;
+}
+
+.selected-color-ring {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #000;
+}
+
+.color-picker-inline {
+  position: absolute;
+  top: -10px;        /* ⬆ Shift upward slightly */
+  left: 160px;       /* 👉 Push more to the right to clear preview ring */
+  z-index: 100;
+}

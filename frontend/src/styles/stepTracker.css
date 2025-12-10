@@ -1,0 +1,33 @@
+.step-tracker {
+  display: flex;
+  gap: 20px;
+  position: relative;
+}
+
+.step-item {
+  flex: 1;
+  position: relative;
+}
+
+.step-circle {
+  width: 40px;
+  height: 40px;
+  background-color: #ccc;
+  color: white;
+  border-radius: 50%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.step-circle.completed {
+  background-color: #28a745;
+}
+
+.step-label {
+  margin-top: 8px;
+  font-size: 14px;
+}

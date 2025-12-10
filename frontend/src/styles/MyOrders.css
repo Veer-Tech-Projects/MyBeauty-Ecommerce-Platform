@@ -1,0 +1,178 @@
+:root {
+  --paper-0:   #fdfcfb;
+  --paper-50:  #f7f4f1;
+  --paper-100: #ebe6df;
+  --taupe-600: #5e4734;
+  --taupe-700: #4a3827;
+  --amber-400:#d3a66b;
+  --jade-400: #6fb28f;
+  --sky-400:  #6e9de8;
+  --ruby-400: #e07575;
+}
+
+body {
+  font-family: "Inter", "SF Pro", Arial, sans-serif;
+  color: var(--taupe-700);
+}
+
+.orders-wrapper {
+  max-width: 720px;
+  margin-inline: auto;
+  padding: 3.8rem 1rem 3rem;
+}
+
+.orders-wrapper > h2,
+.orders-wrapper > h3 {
+  font-size: 1.7rem;
+  font-weight: 900;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  margin-bottom: 2.2rem;
+  color: var(--taupe-700);
+  margin-top: 25px;
+  margin-left: 7px;
+}
+
+.order-card {
+  background: #ffffffdc;
+  backdrop-filter: blur(4px);
+  border-radius: 18px;
+  padding: 1.6rem 1.4rem 1.4rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.04) inset, 0 6px 20px rgba(0,0,0,0.08);
+  transition: all 0.2s ease-in-out;
+}
+.order-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+}
+
+.order-card h6 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--taupe-700);
+  margin-bottom: .2rem;
+}
+
+.order-date {
+  font-size: 0.8rem;
+  color: var(--taupe-600);
+  opacity: .85;
+  margin-bottom: 0.3rem;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 999px;
+  margin-left: 6px;
+  color: #fff;
+}
+.status-pill.Paid      { background: var(--amber-400); }
+.status-pill.Pending   { background: var(--sky-400);   }
+.status-pill.Shipped   { background: var(--sky-400);   }
+.status-pill.Delivered { background: var(--jade-400);  }
+.status-pill.Cancelled { background: var(--ruby-400);  }
+
+.remove-icon-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #e0636d;       /* light red */
+  color: #fcf2f2;                  /* dark red text/icon */
+  border: 1px solid #f5c2c7;       /* soft border */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75rem;
+  transition: background 0.2s ease;
+}
+
+.remove-icon-btn:hover {
+  background-color: #da404f;       /* slightly darker on hover */
+  color: #efe7e7;
+}
+
+
+/* Track shipment link with truck icon */
+/* prettier tracking link with truck icon */
+.tracking-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: .25rem;
+  font-size: .86rem;
+  font-weight: 600;
+  color: var(--amber-400);
+  text-decoration: none;
+  transition: color .18s ease;
+}
+
+.tracking-link .bi {
+  font-size: 1rem;
+  transform: translateX(0);
+  transition: transform .25s cubic-bezier(.22,.62,.28,.9);
+}
+
+.tracking-link:hover {
+  color: var(--taupe-700);
+}
+
+.tracking-link:hover .bi {
+  transform: translateX(3px);        /* subtle slide */
+}
+
+
+/* Item Grid */
+@media (min-width: 460px) {
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem .8rem;
+  }
+}
+
+.order-item-box {
+  border: 1px solid var(--paper-100);
+  border-radius: 14px;
+  padding: 0.7rem;
+  background: var(--paper-50);
+  text-align: center;
+  height: 100%;
+  transition: box-shadow .2s;
+}
+.order-item-box:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.order-item-thumb {
+  width: 100%;
+  height: 110px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #fff;
+  transition: transform 0.25s ease;
+}
+.order-item-box:hover .order-item-thumb {
+  transform: scale(1.05);
+}
+
+.order-item-box .fw-semibold {
+  font-size: 0.88rem;
+  margin-top: 0.45rem;
+  color: var(--taupe-700);
+}
+.order-item-box .text-muted {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.order-total {
+  margin-top: 0.6rem;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--taupe-700);
+}

@@ -1,0 +1,31 @@
+.order-summary-page {
+  background: #f7f4ed;
+  min-height: 100vh;
+  padding-bottom: 5rem; /* ensures button is above footer/navbar */
+}
+
+/* Cards */
+.product-mini-card {
+  border: none;
+  border-radius: 0.6rem;
+}
+
+.card hr {
+  margin: 0.4rem 0;
+}
+
+/* Product image tight alignment */
+.product-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin-right: 6px; /* minimal gap */
+  margin-left: 10px;
+}
+
+/* Product info compact */
+.product-info {
+  line-height: 1.3;
+  margin-left: 23px;
+  align-content: center !important;
+}

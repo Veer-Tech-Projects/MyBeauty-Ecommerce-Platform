@@ -1,0 +1,158 @@
+/* =====================================================
+   Admin › OrderList   —   warm “glass board” theme
+   (only affects the specific markup inside this file)
+===================================================== */
+
+/* palette / shadow / radius */
+:root{
+  --ivory-0:   #fdfbf9;
+  --ivory-50:  #f6f1eb;
+  --sand-100:  #e8e0d7;
+  --brown-600: #594738;
+  --gold:      #c7a66f;
+  --green:     #7ab37b;
+  --blue:      #76a4e5;
+  --red:       #d96767;
+  --shadow:    0 8px 28px rgba(0,0,0,.06);
+  --radius:    18px;
+}
+
+/* -----------------------------------------------------
+   Outer container tweaks (only when this component
+   renders its own .container)
+------------------------------------------------------ */
+.container > h4{
+  font-weight:800;
+  color:var(--brown-600);
+  letter-spacing:.02em;
+  margin-bottom:2.4rem;
+}
+
+/* -----------------------------------------------------
+   Filter card (the very first .card)
+------------------------------------------------------ */
+.card:first-of-type{
+  background:var(--ivory-0);
+  border:1px solid var(--sand-100);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
+/* label + inputs tweak */
+.card:first-of-type .form-label{
+  font-size:.85rem;
+  font-weight:600;
+  color:var(--brown-600);
+  margin-bottom:.25rem;
+}
+.card:first-of-type .form-control,
+.card:first-of-type .form-select{
+  font-size:.85rem;
+  border-radius:12px;
+}
+.card:first-of-type .btn{
+  border-radius:999px;
+}
+
+/* quick-preset buttons */
+.btn-outline-secondary.btn-sm{
+  font-size:.76rem;
+  padding:.25rem .9rem;
+  border-radius:999px;
+}
+
+/* -----------------------------------------------------
+   Order cards  (.card.my-3 → only those, not the filter)
+------------------------------------------------------ */
+.card.my-3{
+  background:rgba(255,255,255,.6);
+  backdrop-filter:blur(14px);
+  border:1px solid var(--sand-100);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.card.my-3:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 32px rgba(0,0,0,.08);
+}
+
+/* header */
+.card.my-3 h5{
+  font-weight:700;
+  color:var(--brown-600);
+  margin-bottom:.6rem;
+}
+.card.my-3 .badge{
+  font-size:.75rem;
+  padding:.35rem .7rem;
+}
+
+/* status badge colours (based on innerText) */
+.card.my-3 .badge{
+  background:var(--blue);
+  color:#fff;
+}
+.card.my-3 .badge:has(span:contains("Delivered")){
+  background:var(--green);
+}
+.card.my-3 .badge:has(span:contains("Cancelled")){
+  background:var(--red);
+}
+.card.my-3 .badge:has(span:contains("Shipped")){ /* gold */
+  background:var(--gold);
+}
+
+/* items list */
+.list-group-item{
+  font-size:.85rem;
+  border:none;
+  border-bottom:1px solid var(--sand-100);
+}
+.list-group-item:last-of-type{ border-bottom:none; }
+
+/* item image */
+.list-group-item img{
+  border-radius:10px;
+  flex-shrink:0;
+  box-shadow:0 2px 4px rgba(0,0,0,.05);
+}
+
+/* address / total text */
+.card.my-3 p{
+  font-size:.9rem;
+  color:var(--brown-600);
+}
+
+/* status dropdown + delete button row */
+.card.my-3 .form-select{
+  font-size:.8rem;
+  border-radius:999px;
+}
+.card.my-3 .btn-outline-danger{
+  font-size:.8rem;
+  border-radius:999px;
+  padding:.4rem 1rem;
+}
+.card.my-3 .btn-danger,
+.card.my-3 .btn-secondary{
+  font-size:.8rem;
+  padding:.35rem 1rem;
+  border-radius:999px;
+}
+.btn-primary{
+  background-color: green;
+  color: #fff;
+}
+.btn-primary:hover{
+  background-color: rgb(13, 181, 13);
+  color: #fdfbf9;
+}
+/* -----------------------------------------------------
+   Slide-in / fade effect when list refreshes
+------------------------------------------------------ */
+@keyframes fadeSlideUp{
+  from{ opacity:0; transform:translateY(8px); }
+  to  { opacity:1; transform:translateY(0);     }
+}
+.card.my-3{ animation:fadeSlideUp .28s ease; }

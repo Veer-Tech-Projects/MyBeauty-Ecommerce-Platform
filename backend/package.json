@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "firebase": "^11.9.1",
+    "jwt-decode": "^4.0.0",
+    "lodash": "^4.17.21",
+    "uuid": "^13.0.0"
+  }
+}

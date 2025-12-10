@@ -1,0 +1,50 @@
+/* src/styles/Home.css */
+
+body {
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.carousel img {
+  height: 400px;
+  object-fit: cover;
+}
+
+h3 {
+  font-weight: 600;
+  color: #333;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.card-title {
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-text {
+  color: #28a745;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+.main-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}

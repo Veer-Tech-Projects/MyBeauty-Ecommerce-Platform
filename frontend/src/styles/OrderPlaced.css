@@ -1,0 +1,87 @@
+/* ===== page wrapper / card (unchanged) ===== */
+.op-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f7f2eb, #f3ede6);
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+.op-card {
+  max-width: 440px;
+  padding: 2.4rem 2rem 3rem;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  z-index: 2;
+}
+
+/* ===== Confetti burst container ===== */
+.confetti-burst {
+  position: absolute;
+  top: 0;                /* start at top edge */
+  width: 180px;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* left & right positioning */
+.confetti-burst.left  { left: 0;  transform: translateX(-40%); }
+.confetti-burst.right { right: 0; transform: translateX(40%);  }
+
+/* ===== individual confetti pieces ===== */
+.confetti-burst span {
+  --size: 8px;                      /* base square */
+  position: absolute;
+  top: -10px;
+  left: 50%;                        /* start roughly centre of burst */
+  width: var(--size);
+  height: var(--size);
+  border-radius: 2px;
+  background: #f44336;              /* default red, many get overwritten */
+  animation: conf-drop 1.6s ease-out forwards;
+  opacity: 0;
+}
+
+/* randomise colours, delays, x‑offsets with nth‑child */
+.confetti-burst span:nth-child(7n  ) { background:#ff6b6b; }
+.confetti-burst span:nth-child(7n+1) { background:#f7c948; }
+.confetti-burst span:nth-child(7n+2) { background:#51cf66; }
+.confetti-burst span:nth-child(7n+3) { background:#339af0; }
+.confetti-burst span:nth-child(7n+4) { background:#845ef7; }
+.confetti-burst span:nth-child(7n+5) { background:#ff922b; }
+.confetti-burst span:nth-child(7n+6) { background:#20c997; }
+
+/* offset left/right per piece */
+@for 1 through 25 {
+  .confetti-burst span:nth-child(@{for}) {
+    left: calc(@for * 4%);                       /* spread across container width */
+    animation-delay: calc(@for * 30ms);          /* stagger drops */
+    animation-duration: calc(1200ms + (@for * 15ms));
+  }
+}
+
+/* ===== fall & spin ===== */
+@keyframes conf-drop {
+  0%   { transform: translateY(0)   rotate(0deg)   scale(1); opacity: 1; }
+  70%  { transform: translateY(500px) rotate(720deg) scale(1); opacity: 1; }
+  100% { transform: translateY(650px) rotate(1080deg) scale(0.8); opacity: 0; }
+}
+/* base state */
+.btn-success,
+.btn-success:focus,
+.btn-success:active,
+.btn-success:focus-visible,
+.btn-success:not(:disabled):active {
+  background-color: #c79460;   /* your main colour */
+  border-color: black;
+  color: #fff;                 /* need the # symbol */
+}
+
+/* hover state */
+.btn-success:hover {
+  background-color: #a37648;   /* darker on hover */
+  border-color: black;
+  color: #fff;
+}

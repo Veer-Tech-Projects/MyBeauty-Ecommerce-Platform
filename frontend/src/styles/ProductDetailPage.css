@@ -1,0 +1,173 @@
+/* ProductDetailPage.css  – final */
+
+:root {
+  --accent: #b69a6c;
+  --accent-dark: #a07f52;
+}
+
+/* ---------- Card ---------- */
+.pd-card {
+  position: relative; /* anchor for discount tag */
+  background: #f6f1eb;
+  border-radius: 16px;
+  padding: 32px 28px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* make image column relative for tag */
+.pd-img-box { position: relative; }
+
+/* ---------- Slick arrows ---------- */
+.pd-slider .slick-slide > div { display: flex; align-items: center; justify-content: center; }
+.pd-slider .slick-prev,
+.pd-slider .slick-next       { width: 30px; height: 30px; z-index: 2; }
+.pd-slider .slick-prev:before,
+.pd-slider .slick-next:before{ font-size: 28px; line-height: 1; color: #9c9c9c; opacity: 1; }
+
+/* ---------- Images ---------- */
+.pd-main-img {
+  width: 95%;
+  max-height: 400px;
+  margin: 0 auto;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #d7d7d7;
+  box-shadow: inset 0 0 4px rgba(0,0,0,.03);
+}
+.pd-thumbs { margin-top: 8px; }
+.pd-thumb  {
+  width: 66px; height: 66px; border-radius: 10px;
+  object-fit: cover; cursor: pointer;
+  border: 2px solid transparent; transition: border .2s;
+  background: #d7d7d7; box-shadow: inset 0 0 4px rgba(0,0,0,.03);
+}
+.pd-thumb:hover { border-color: var(--accent); }
+
+/* ---------- Text ---------- */
+.pd-title { font-size: 1.8rem; font-weight: 600; margin-bottom: .25rem; }
+.pd-price { font-size: 1.35rem; font-weight: 700; margin-bottom: 1rem; }
+.pd-desc  { color: #555; line-height: 1.5; margin-bottom: 1rem; max-width: 420px; }
+.pd-stock { margin-bottom: 1.1rem; }
+
+/* ---------- Quantity ---------- */
+.qty-box { display: inline-flex; align-items: center; gap: 14px; border: 1px solid #ddd; border-radius: 10px; padding: 6px 14px; }
+.qty-val { width: 24px; text-align: center; font-weight: 600; }
+.qty-btn{
+  border: none; background: transparent; font-size: 20px; width: 24px; height: 24px;
+  line-height: 1; color: #444; cursor: pointer;
+}
+.qty-btn:disabled { opacity: .35; cursor: not-allowed; }
+
+/* ---------- Buttons ---------- */
+.btn-accent{
+  background: var(--accent); color: #fff; border: none; border-radius: 10px; padding: 12px 0;
+}
+.btn-accent:hover { background: var(--accent-dark); }
+.btn-accent-outline{
+  border: 2px solid var(--accent); color: var(--accent); border-radius: 10px; padding: 12px 0;
+}
+.btn-accent-outline:hover { background: var(--accent); color: #fff; }
+.btn-accent:disabled,
+.btn-accent-outline:disabled {
+  background: var(--accent); color: #fff; border-color: var(--accent); opacity: 0.55; pointer-events: none;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .pd-card       { padding: 24px 20px; }
+  .pd-title      { font-size: 1.55rem; }
+  .pd-price      { font-size: 1.2rem; }
+  .pd-main-img   { max-height: 320px; }
+  .pd-thumb      { width: 60px; height: 60px; }
+}
+.current-price{
+  color: #1f1e1e !important;
+}
+
+.pd-slider .slick-prev,
+.pd-slider .slick-next {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+}
+
+.pd-slider .slick-prev:before,
+.pd-slider .slick-next:before {
+  color: white;
+  font-size: 20px;
+}
+
+.pd-thumb {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pd-thumb.selected {
+  border-color: #000;
+}
+
+.pd-main-img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+}
+
+/* Adjust slider dot position */
+.slick-custom .slick-dots {
+  bottom: -20px; /* moved further down */
+}
+
+/* Dot style */
+.slick-custom .slick-dots li button:before {
+  font-size: 8px;
+  color: #888;
+  opacity: 0.75;
+}
+
+.slick-custom .slick-dots li.slick-active button:before {
+  color: #000;
+  opacity: 1;
+}
+
+/* Thumbnail hover */
+.pd-thumb-img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Selected ring */
+.selected-ring {
+  box-shadow: 0 0 0 2px #000 !important;
+}
+
+/* Custom slider arrows */
+.custom-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  font-size: 24px;
+  color: gray;
+  cursor: pointer;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+.custom-prev {
+  left: -10px;
+}
+.custom-next {
+  right: -10px;
+}
