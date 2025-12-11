@@ -18,6 +18,8 @@ from app.logger import get_logger
 admin_products = Blueprint("admin_products", __name__)
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+# UPLOAD_FOLDER definition is kept for backward compatibility if needed, 
+# but we will use current_app.root_path inside functions for safety.
 UPLOAD_FOLDER = os.path.join(BASE_DIR, "static", "uploads", "products")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
@@ -571,7 +573,7 @@ def update_product(product_id):
             UPDATE products
             SET name=%s, price=%s, mrp=%s, discount=%s, stock=%s, category_id=%s, description=%s,
                 brand=%s, delivery_type=%s, delivery_charge=%s, cod_available=%s, return_policy=%s,
-                size_stock=%s, color_name=%s, color_code=%s, updated_at=CURRENT_TIMESTAMP
+                size_stock=%s, color_name=%s, color_code=%s
             WHERE id=%s
             """,
             (
@@ -613,13 +615,21 @@ def update_product(product_id):
                         log.error("Failed to remove product image file", extra={"path": img.get("image_path"), "error": str(e)})
                 cursor.execute("DELETE FROM product_images WHERE id = %s", (img["id"],))
 
+        # --- Use absolute path for saving, relative path for DB ---
+        upload_root = os.path.join(current_app.root_path, "static", "uploads", "products")
+        os.makedirs(upload_root, exist_ok=True)
+
         for img in files.getlist("images"):
             if img and img.filename:
                 filename = secure_filename(f"{uuid.uuid4().hex}_{img.filename}")
-                filepath = os.path.join(UPLOAD_FOLDER, filename)
-                os.makedirs(os.path.dirname(filepath), exist_ok=True)
-                img.save(filepath)
-                cursor.execute("INSERT INTO product_images (product_id, image_path) VALUES (%s, %s)", (product_id, filepath.replace("\\", "/")))
+                # Save using absolute path
+                abs_path = os.path.join(upload_root, filename)
+                img.save(abs_path)
+                
+                # Store relative path in DB (e.g. static/uploads/products/xyz.jpg)
+                rel_path = os.path.relpath(abs_path, current_app.root_path).replace("\\", "/")
+                
+                cursor.execute("INSERT INTO product_images (product_id, image_path) VALUES (%s, %s)", (product_id, rel_path))
 
         # 6. Cache invalidation
         invalidate_stock_cache(redis_client, product_id, None)
@@ -751,30 +761,33 @@ def update_variant(variant_id):
         size_stock_serialized = json.dumps(size_stock) if size_stock else None
 
         # Update variant record (stock included)
+        # Note: Removing 'updated_at' if it doesn't exist in your schema, or keep if you added it
         cursor.execute(
             """
             UPDATE product_variants
             SET name=%s, color_name=%s, color_code=%s, mrp=%s, discount=%s, price=%s,
-                stock=%s, sizes=%s, size_stock=%s, updated_at=CURRENT_TIMESTAMP
+                stock=%s, sizes=%s, size_stock=%s
             WHERE id=%s
             """,
             (name, color_name, color_code, mrp, discount, price, stock, sizes, size_stock_serialized, variant_id),
         )
 
         # Upload folder for variant images
-        VARIANT_UPLOAD = os.path.join("static", "uploads", "variants")
-        os.makedirs(VARIANT_UPLOAD, exist_ok=True)
+        upload_root = os.path.join(current_app.root_path, "static", "uploads", "variants")
+        os.makedirs(upload_root, exist_ok=True)
 
         # Save new images
         new_images = request.files.getlist("variant_images")
         for img in new_images:
             if img and img.filename:
                 filename = secure_filename(f"{uuid.uuid4().hex}_{img.filename}")
-                filepath = os.path.join(VARIANT_UPLOAD, filename)
-                os.makedirs(os.path.dirname(filepath), exist_ok=True)
-                img.save(filepath)
-                normalized = filepath.replace("\\", "/")
-                cursor.execute("INSERT INTO variant_images (variant_id, image_path) VALUES (%s, %s)", (variant_id, normalized))
+                abs_path = os.path.join(upload_root, filename)
+                img.save(abs_path)
+                
+                # Relative path for DB
+                rel_path = os.path.relpath(abs_path, current_app.root_path).replace("\\", "/")
+                
+                cursor.execute("INSERT INTO variant_images (variant_id, image_path) VALUES (%s, %s)", (variant_id, rel_path))
 
         # Delete removed images
         removed_images_raw = data.get("removed_images")
@@ -782,14 +795,25 @@ def update_variant(variant_id):
             try:
                 removed_images = json.loads(removed_images_raw)
                 for img_url in removed_images:
-                    path = img_url.replace(f"{request.url_root.rstrip('/')}/", "")
-                    abs_path = os.path.join(".", path)
+                    # Logic to convert URL to path might need adjustment based on how URLs are served
+                    # Assuming url ends with static/...
+                    if "static/" in img_url:
+                        path = img_url.split("static/", 1)[1]
+                        path = os.path.join("static", path)
+                    else:
+                        path = img_url
+                        
+                    abs_path = os.path.join(current_app.root_path, path)
+                    
                     if os.path.exists(abs_path):
                         try:
                             os.remove(abs_path)
                         except Exception as e:
                             log.error("Failed to delete variant image file", extra={"path": abs_path, "error": str(e)})
-                    cursor.execute("DELETE FROM variant_images WHERE variant_id = %s AND image_path = %s", (variant_id, path))
+                    
+                    # Normalize path for DB deletion query
+                    db_path = path.replace("\\", "/")
+                    cursor.execute("DELETE FROM variant_images WHERE variant_id = %s AND image_path = %s", (variant_id, db_path))
             except Exception as e:
                 log.error("Failed to remove images list", extra={"error": str(e)})
 
@@ -880,8 +904,10 @@ def delete_product_image(image_id):
         # Remove file
         if image.get("image_path"):
             try:
-                if os.path.exists(image["image_path"]):
-                    os.remove(image["image_path"])
+                # Construct absolute path from relative path in DB
+                abs_path = os.path.join(current_app.root_path, image["image_path"])
+                if os.path.exists(abs_path):
+                    os.remove(abs_path)
             except Exception as e:
                 log.error("Failed to delete product image file", extra={"path": image.get("image_path"), "error": str(e)})
 

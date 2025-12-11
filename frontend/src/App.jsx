@@ -16,6 +16,7 @@ import ProductGrid from "./components/ProductGrid";
 
 import UserProtectedRoute from "./components/UserProtectedRoute";
 
+// ---------- BUYER PAGES ----------
 import CategoryProductsPage from "./pages/CategoryProductsPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import BestSellersPage from './pages/BestSellersPage';
@@ -34,27 +35,25 @@ import SearchResults from "./pages/SearchResults";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 
+// ---------- ADMIN PAGES (The New Single-Seller Ecosystem) ----------
+import AdminLogin from './pages/admin/AdminLogin';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminProductsPage from './pages/admin/AdminProductsPage'; // Was SellerProductsPage
+import AdminAddProductPage from './pages/admin/AdminAddProductPage';
+import EditProductPage from './pages/admin/EditProductPage';
+import EditVariantPage from './pages/admin/EditVariantPage';
+import AdminOrdersPage from './pages/admin/AdminOrdersPage';
+import AdminPaymentsPage from './pages/admin/AdminPaymentsPage';
+import AdminReturnsPage from './pages/admin/AdminReturnsPage';
+import AdminShippingPage from './pages/admin/AdminShippingPage';
+import AdminAddressPage from './pages/admin/AdminAddressPage';
+import AdminBankDetailsPage from './pages/admin/AdminBankDetailsPage';
 
-import SellerDashboard from "./pages/seller/SellerDashboard";
-import SellerProductsPage from "./pages/seller/SellerProductsPage";
-import EditProductPage from "./pages/seller/EditProductPage";
-import SellerOrdersPage from "./pages/seller/SellerOrdersPage";
-import SellerPaymentsPage from "./pages/seller/SellerPaymentsPage";
-import SellerReturnsPage from "./pages/seller/SellerReturnsPage";
-import SellerAddressPage from "./pages/seller/SellerAddressPage";
-import AdminAddProductPage from "./pages/seller/AdminAddProductPage.jsx";
-import SellerShippingPage from './pages/seller/SellerShippingPage';
-import SellerBankDetailsPage from "./pages/seller/SellerBankDetailsPage";
-import EditVariantPage from "./pages/seller/EditVariantPage";
+import AdminProtectedRoute from './routes/AdminProtectedRoute';
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./styles/Home.css";
-
- // --------------: Admin Auth :-----------------
-import AdminLogin from './pages/admin/AdminLogin';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import AdminProtectedRoute from './routes/AdminProtectedRoute';
 
 function AppContent() {
   const { loading } = useContext(AuthContext);
@@ -63,8 +62,9 @@ function AppContent() {
 
   if (loading) return <FullScreenSpinner />;
 
-  const hideBottomNav = location.pathname.startsWith("/seller");
-  const hideNavbar = location.pathname.startsWith("/seller");
+  // Hide public navbar/bottom-nav for Admin routes
+  const hideBottomNav = location.pathname.startsWith("/admin");
+  const hideNavbar = location.pathname.startsWith("/admin");
 
   return (
     <>
@@ -74,18 +74,20 @@ function AppContent() {
       <div className="main-wrapper">
         <Routes>
 
-          {/* ---------- PUBLIC STORE ---------- */}
+          {/* =========================================================
+              PUBLIC STOREFRONT (Buyer Side)
+             ========================================================= */}
           <Route path="/" element={<><CategorySection /><ProductGrid /></>} />
           <Route path="/category/:categoryId" element={<CategoryProductsPage />} />
           <Route path="/product/:productId" element={<ProductDetailPage />} />
           <Route path="/category/:categoryId/best-sellers" element={<BestSellersPage />} />
           <Route path="/cart" element={<div className="container"><CartPage /></div>} />
 
-          {/* ---------- AUTH (CUSTOMER) ---------- */}
+          {/* Auth (Customer) */}
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
 
-          {/* ---------- PROTECTED BUYER ROUTES ---------- */}
+          {/* Protected Buyer Routes */}
           <Route path="/checkout" element={<UserProtectedRoute><CheckoutLayout /></UserProtectedRoute>}>
             <Route path="address" element={<AddressStep />} />
             <Route path="summary" element={<SummaryStep />} />
@@ -93,41 +95,94 @@ function AppContent() {
             <Route index element={<Navigate to="address" replace />} />
           </Route>
 
-
           <Route path="/profile" element={<UserProtectedRoute><ProfilePage /></UserProtectedRoute>} />
           <Route path="/order-placed" element={<UserProtectedRoute><OrderPlacedPage /></UserProtectedRoute>} />
           <Route path="/my-orders" element={<UserProtectedRoute><MyOrders /></UserProtectedRoute>} />
 
-          {/* ---------- OTHER BUYER PAGES ---------- */}
+          {/* Other Buyer Pages */}
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/help" element={<HelpCenter />} />
           <Route path="/search" element={<SearchResults />} />
 
-          {/* ---------- PROTECTED SELLER ROUTES ---------- */}
-          <Route path="/seller/dashboard" element={<SellerDashboard/>} />
-          <Route path="/seller/products" element={<SellerProductsPage />} />
-          <Route path="/seller/edit-product/:id" element={<EditProductPage />} />
-          <Route path="/seller/orders" element={<SellerOrdersPage />} />
-          <Route path="/seller/payments" element={<SellerPaymentsPage />} />
-          <Route path="/seller/returns" element={<SellerReturnsPage />} />
-          <Route path="/seller/address" element={<SellerAddressPage />} />
-          <Route path="/seller/shipping" element={<SellerShippingPage />} />
-          <Route path="/seller/bank-details" element={<SellerBankDetailsPage />} />
-          <Route path="/seller/edit-variant/:id" element={<EditVariantPage />} />
 
-          {/* -------------- Admin ------------------ */}
+          {/* =========================================================
+              ADMIN DASHBOARD (Single Seller Operations)
+             ========================================================= */}
+          
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route
-            path="/admin/dashboard"
-            element={
-              <AdminProtectedRoute>
-                <AdminDashboard />
-              </AdminProtectedRoute>
-            }
-          />
-          <Route path="/admin/add-product" element={<AdminAddProductPage />} />
 
-          {/* 404 */}
+          {/* Protected Admin Routes Wrapper */}
+          <Route path="/admin" element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
+          
+          <Route path="/admin/dashboard" element={
+            <AdminProtectedRoute>
+              <AdminDashboard />
+            </AdminProtectedRoute>
+          } />
+
+          {/* Product Management */}
+          <Route path="/admin/products" element={
+            <AdminProtectedRoute>
+              <AdminProductsPage />
+            </AdminProtectedRoute>
+          } />
+          
+          <Route path="/admin/add-product" element={
+            <AdminProtectedRoute>
+              <AdminAddProductPage />
+            </AdminProtectedRoute>
+          } />
+
+          <Route path="/admin/edit-product/:id" element={
+            <AdminProtectedRoute>
+              <EditProductPage />
+            </AdminProtectedRoute>
+          } />
+
+          <Route path="/admin/edit-variant/:id" element={
+            <AdminProtectedRoute>
+              <EditVariantPage />
+            </AdminProtectedRoute>
+          } />
+
+          {/* Order & Operations Management */}
+          <Route path="/admin/orders" element={
+            <AdminProtectedRoute>
+              <AdminOrdersPage />
+            </AdminProtectedRoute>
+          } />
+
+          <Route path="/admin/payments" element={
+            <AdminProtectedRoute>
+              <AdminPaymentsPage />
+            </AdminProtectedRoute>
+          } />
+
+          <Route path="/admin/returns" element={
+            <AdminProtectedRoute>
+              <AdminReturnsPage />
+            </AdminProtectedRoute>
+          } />
+
+          <Route path="/admin/shipping" element={
+            <AdminProtectedRoute>
+              <AdminShippingPage />
+            </AdminProtectedRoute>
+          } />
+
+          <Route path="/admin/address" element={
+            <AdminProtectedRoute>
+              <AdminAddressPage />
+            </AdminProtectedRoute>
+          } />
+
+          <Route path="/admin/bank-details" element={
+            <AdminProtectedRoute>
+              <AdminBankDetailsPage />
+            </AdminProtectedRoute>
+          } />
+
+          {/* 404 Fallback */}
           <Route path="*" element={<div className="p-5 text-center"><h1>404 - Not Found</h1></div>} />
 
         </Routes>

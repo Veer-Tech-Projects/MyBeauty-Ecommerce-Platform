@@ -1,189 +1,118 @@
-// frontend/src/pages/admin/AdminDashboard.jsx
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAdminAuth } from '../../context/AdminAuthContext';
-import { refreshAdminSession } from '../../utils/adminAuthService';
-import AdminProtectedRoute from '../../routes/AdminProtectedRoute';
+import React, { useState } from "react";
+import { Card } from "react-bootstrap";
+import Sidebar from "./Sidebar";
+import DashboardCards from "./DashboardCards";
+import { useAdminAuth } from "../../context/AdminAuthContext";
+// Note: We use relative imports assuming you will place this in src/pages/admin/
+import "../../styles/SellerDashboard.css"; // We preserve the styles
 
-const AdminDashboard = () => {
+function AdminDashboard() {
   const { admin, logout } = useAdminAuth();
-  const navigate = useNavigate();
-
-  // Auto-refresh session on user activity (mousemove, keydown, scroll)
-  useEffect(() => {
-    let idleTimer;
-
-    const resetTimer = () => {
-      clearTimeout(idleTimer);
-      idleTimer = setTimeout(async () => {
-        try {
-          await refreshAdminSession();
-          console.log('Admin session auto-refreshed');
-        } catch (err) {
-          console.warn('Auto-refresh failed:', err.message);
-          // Optionally: force logout if refresh fails
-        }
-      }, 25 * 60 * 1000); // Refresh after 25 min of activity
-    };
-
-    const events = ['mousemove', 'keydown', 'scroll', 'click'];
-    events.forEach(event => window.addEventListener(event, resetTimer));
-
-    resetTimer(); // Initial trigger
-
-    return () => {
-      events.forEach(event => window.removeEventListener(event, resetTimer));
-      clearTimeout(idleTimer);
-    };
-  }, []);
+  const [showProfileCard, setShowProfileCard] = useState(false);
 
   const handleLogout = async () => {
-    if (window.confirm('Are you sure you want to log out?')) {
-      await logout();
-      navigate('/admin/login', { replace: true });
-    }
+    await logout();
+    // Context will handle redirect to login
   };
 
   return (
-    <AdminProtectedRoute>
-      <div className="min-vh-100 bg-light">
-        {/* Navbar */}
-        <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
-          <div className="container-fluid">
-            <a className="navbar-brand fw-bold" href="/admin/dashboard">
-              MyBeauty Admin
-            </a>
-            <div className="d-flex align-items-center">
-              <span className="text-white me-3">
-                <i className="bi bi-person-circle"></i> {admin.name}
-              </span>
-              <button
-                onClick={handleLogout}
-                className="btn btn-outline-light btn-sm"
-              >
-                <i className="bi bi-box-arrow-right"></i> Logout
-              </button>
-            </div>
+    <div className="seller-dashboard-wrapper d-flex">
+      {/* Sidebar Navigation */}
+      <Sidebar />
+
+      <div className="seller-dashboard-main flex-grow-1" style={{ marginLeft: "250px" }}>
+        
+        {/* Top Navigation Bar */}
+        <div
+          className="dashboard-topbar bg-white shadow-sm px-4 py-3 d-flex justify-content-between align-items-center position-fixed"
+          style={{ top: 0, left: "250px", right: 0, height: "72px", zIndex: 1000 }}
+        >
+          <div className="d-flex align-items-center gap-2">
+            <span className="fs-4 fw-bold text-dark">Admin Dashboard</span>
           </div>
-        </nav>
 
-        {/* Main Content */}
-        <div className="container-fluid py-4">
-          <div className="row">
-            {/* Sidebar */}
-            <div className="col-md-3 col-lg-2 d-md-block bg-white sidebar border-end" style={{ minHeight: '80vh' }}>
-              <div className="p-3">
-                <h5 className="text-muted">Navigation</h5>
-                <ul className="nav nav-pills flex-column">
-                  <li className="nav-item">
-                    <a href="/admin/dashboard" className="nav-link active">
-                      <i className="bi bi-speedometer2"></i> Dashboard
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="/admin/orders" className="nav-link">
-                      <i className="bi bi-cart"></i> Orders
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="/admin/products" className="nav-link">
-                      <i className="bi bi-box"></i> Products
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="/admin/analytics" className="nav-link">
-                      <i className="bi bi-graph-up"></i> Analytics
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a href="/admin/settings" className="nav-link">
-                      <i className="bi bi-gear"></i> Settings
-                    </a>
-                  </li>
-                </ul>
-              </div>
+          <div className="d-flex align-items-center gap-3 position-relative">
+            <i className="bi bi-bell fs-5 text-muted" role="button"></i>
+            
+            {/* Profile Section */}
+            <div 
+              className="d-flex align-items-center gap-2 cursor-pointer" 
+              onClick={() => setShowProfileCard(!showProfileCard)}
+              style={{ cursor: 'pointer' }}
+            >
+                <div className="text-end d-none d-sm-block">
+                    <div className="fw-semibold small">{admin?.name || 'Admin'}</div>
+                    <div className="text-muted" style={{fontSize: '0.75rem'}}>{admin?.role || 'Manager'}</div>
+                </div>
+                <img
+                // Use a default avatar if no image available
+                src={"https://ui-avatars.com/api/?name=" + (admin?.name || "Admin") + "&background=0D8ABC&color=fff"}
+                alt="Profile"
+                className="rounded-circle border"
+                width="40"
+                height="40"
+                />
             </div>
 
-            {/* Main Panel */}
-            <div className="col-md-9 col-lg-10">
-              <div className="row g-4">
-                {/* Welcome Card */}
-                <div className="col-12">
-                  <div className="card border-0 shadow-sm">
-                    <div className="card-body">
-                      <h2 className="card-title mb-3">
-                        Welcome back, <span className="text-primary">{admin.name}</span>!
-                      </h2>
-                      <p className="text-muted">
-                        You are logged in as <strong>{admin.role.toUpperCase()}</strong>
-                      </p>
-                    </div>
+            {/* Profile Dropdown Card */}
+            {showProfileCard && (
+              <div
+                className="position-absolute bg-white shadow rounded p-3"
+                style={{ top: "60px", right: "0", width: "250px", zIndex: 1050 }}
+              >
+                <div className="d-flex align-items-center gap-3 mb-3">
+                  <img
+                    src={"https://ui-avatars.com/api/?name=" + (admin?.name || "Admin") + "&background=0D8ABC&color=fff"}
+                    alt="Profile"
+                    className="rounded-circle"
+                    width="50"
+                    height="50"
+                  />
+                  <div>
+                    <h6 className="mb-0 fw-bold">{admin?.name || "Admin User"}</h6>
+                    <small className="text-muted">{admin?.username}</small>
                   </div>
                 </div>
-
-                {/* Stats Cards */}
-                <div className="col-md-4">
-                  <div className="card text-white bg-primary shadow-sm">
-                    <div className="card-body d-flex align-items-center">
-                      <i className="bi bi-cart-check fs-1 me-3"></i>
-                      <div>
-                        <h4 className="mb-0">1,234</h4>
-                        <small>Total Orders</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-md-4">
-                  <div className="card text-white bg-success shadow-sm">
-                    <div className="card-body d-flex align-items-center">
-                      <i className="bi bi-currency-rupee fs-1 me-3"></i>
-                      <div>
-                        <h4 className="mb-0">₹89.5K</h4>
-                        <small>Revenue Today</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-md-4">
-                  <div className="card text-white bg-warning shadow-sm">
-                    <div className="card-body d-flex align-items-center">
-                      <i className="bi bi-people fs-1 me-3"></i>
-                      <div>
-                        <h4 className="mb-0">456</h4>
-                        <small>Active Users</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Session Info */}
-                <div className="col-12">
-                  <div className="card border-0 shadow-sm">
-                    <div className="card-body">
-                      <h5 className="card-title">
-                        <i className="bi bi-shield-lock"></i> Session Security
-                      </h5>
-                      <ul className="list-unstyled">
-                        <li><strong>Username:</strong> {admin.username}</li>
-                        <li><strong>Role:</strong> <span className="badge bg-success">{admin.role}</span></li>
-                        <li><strong>Session:</strong> HttpOnly cookie (auto-refreshed)</li>
-                        <li><strong>Idle Timeout:</strong> 30 minutes</li>
-                      </ul>
-                      <small className="text-muted">
-                        Session auto-refreshes on activity. You will be logged out after 30 min of inactivity.
-                      </small>
-                    </div>
-                  </div>
-                </div>
+                <hr />
+                <button onClick={handleLogout} className="btn btn-sm btn-outline-danger w-100">
+                  <i className="bi bi-box-arrow-right me-2"></i> Logout
+                </button>
               </div>
-            </div>
+            )}
+          </div>
+        </div>
+
+        {/* Main Content Area */}
+        <div className="mt-4" style={{ paddingTop: "72px" }}>
+          <DashboardCards />
+
+          {/* Performance Graph Placeholder - Preserved */}
+          <div className="px-4 mt-4">
+            <Card className="shadow-sm">
+              <Card.Body>
+                <h6 className="fw-semibold mb-3">Performance Overview</h6>
+                <div className="text-muted small mb-2">Orders vs Returns (monthly)</div>
+                <div
+                  style={{
+                    height: "280px",
+                    background: "#f9f9f9",
+                    borderRadius: "6px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#999",
+                  }}
+                >
+                  <i className="bi bi-bar-chart-line fs-1 me-2"></i>
+                  <span>Analytics Coming Soon</span>
+                </div>
+              </Card.Body>
+            </Card>
           </div>
         </div>
       </div>
-    </AdminProtectedRoute>
+    </div>
   );
-};
+}
 
 export default AdminDashboard;
