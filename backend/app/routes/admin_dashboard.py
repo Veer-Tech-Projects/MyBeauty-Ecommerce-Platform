@@ -1,7 +1,7 @@
 # backend/app/routes/admin_dashboard.py
 from flask import Blueprint, jsonify, g
-from app.middlewares.admin_auth_middleware import require_admin_auth
-from app.logger import get_logger
+from app.modules.admin.auth.middleware import require_admin_auth
+from app.shared.logging_config import get_logger
 
 log = get_logger(__name__)
 admin_dashboard_bp = Blueprint('admin_dashboard', __name__, url_prefix='/api/admin')

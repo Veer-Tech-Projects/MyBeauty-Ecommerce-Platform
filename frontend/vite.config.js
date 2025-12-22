@@ -1,6 +1,11 @@
-// vite.config.js
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import path from "path";
+import { fileURLToPath } from "url";
+
+// Fix for __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   plugins: [react()],
@@ -12,7 +17,7 @@ export default defineConfig({
         target: "http://127.0.0.1:5000",
         changeOrigin: true,
         secure: false,
-        // log all proxy requests to verify
+        // log all proxy requests to verify connection
         configure: (proxy) => {
           proxy.on("proxyReq", (proxyReq, req) => {
             console.log("🔁 Proxying:", req.url);
@@ -22,6 +27,11 @@ export default defineConfig({
           });
         },
       },
+    },
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
     },
   },
 });

@@ -9,10 +9,10 @@ from datetime import datetime
 from flask import Blueprint, request, jsonify, current_app, g
 from werkzeug.utils import secure_filename
 
-from app.db import get_db_connection
-from app.middlewares.admin_auth_middleware import require_admin_auth
-from app.utils.session_utils import get_redis
-from app.logger import get_logger
+from app.shared.database import get_db_connection
+from app.modules.admin.auth.middleware import require_admin_auth
+from app.shared.redis_client import RedisClient
+from app.shared.logging_config import get_logger
 
 # Blueprint
 admin_products = Blueprint("admin_products", __name__)
@@ -72,7 +72,7 @@ def add_product():
     files = request.files
 
     try:
-        redis_client = get_redis()
+        redis_client = RedisClient.get_client()
     except Exception:
         redis_client = None
 
@@ -403,7 +403,7 @@ def delete_product(product_id):
                         log.error("Failed to delete variant image file", extra={"path": path, "error": str(e)})
             cursor.execute("DELETE FROM variant_images WHERE variant_id = %s", (product_id,))
             cursor.execute("DELETE FROM product_variants WHERE id = %s", (product_id,))
-            invalidate_stock_cache(get_redis(), row["product_id"], product_id)
+            invalidate_stock_cache(RedisClient.get_client(), row["product_id"], product_id)
         else:
             # delete product images
             cursor.execute("SELECT image_path FROM product_images WHERE product_id = %s", (product_id,))
@@ -433,7 +433,7 @@ def delete_product(product_id):
             cursor.execute("DELETE FROM product_variants WHERE product_id = %s", (product_id,))
             cursor.execute("DELETE FROM products WHERE id = %s", (product_id,))
 
-            invalidate_stock_cache(get_redis(), product_id, None)
+            invalidate_stock_cache(RedisClient.get_client(), product_id, None)
 
         conn.commit()
         log.info("Deleted product/variant", extra={"admin_id": admin_id, "product_id": product_id, "is_variant": is_variant})
@@ -522,7 +522,7 @@ def update_product(product_id):
     files = request.files
 
     try:
-        redis_client = get_redis()
+        redis_client = RedisClient.get_client()
     except Exception:
         redis_client = None
 
@@ -727,7 +727,7 @@ def update_variant(variant_id):
     files = request.files
 
     try:
-        redis_client = get_redis()
+        redis_client = RedisClient.get_client()
     except Exception:
         redis_client = None
 
@@ -915,7 +915,7 @@ def delete_product_image(image_id):
         conn.commit()
 
         # Invalidate product cache
-        invalidate_stock_cache(get_redis(), image["product_id"], None)
+        invalidate_stock_cache(RedisClient.get_client(), image["product_id"], None)
 
         return jsonify({"message": "Image deleted successfully"}), 200
     except Exception as e:
